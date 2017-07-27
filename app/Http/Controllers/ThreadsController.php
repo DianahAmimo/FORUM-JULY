@@ -9,6 +9,7 @@ use App\Filters\ThreadFilters;
 use App\User;
 use Illuminate\Http\Request;
 
+
 class ThreadsController extends Controller
 {
     //ThreadsController constructor
@@ -74,7 +75,10 @@ class ThreadsController extends Controller
      */
     public function show($channelId, Thread $thread)
     {
-        return view('threads.show', compact('thread'));
+        return view('threads.show', [
+            'thread' => $thread,
+            'replies' => $thread->replies()->paginate(20)
+        ]);
     }
 
     /**
