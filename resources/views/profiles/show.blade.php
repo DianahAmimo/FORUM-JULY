@@ -8,36 +8,17 @@
                 <div class="page-header">
                     <h1>
                         {{$profileUser->name}}
-                        <small>Since {{$profileUser->created_at->diffForHumans()}}</small>
                     </h1>
                 </div>
 
-                @foreach($threads as $thread)
+                @foreach($activities as $date => $activity)
+                    <h3 class="page-header"> {{$date}} </h3>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-
-                            <div class="level">
-                                <span>
-                                    <a href="{{route('profile', $thread->creator)}}"> {{ $thread->creator->name }} </a> posted:
-                                    <a href="{{$thread->path()}}">{{ $thread->title }}</a>
-                                </span>
-
-                                <span class="flex">
-                                    <a href="#">{{$thread->created_at->diffForHumans()}}</a>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="panel-body">
-                            {{ $thread->body }}
-                        </div>
-                    </div>
+                    @foreach($activity as $record)
+                        @include("profiles.activities.{$record->type}", ['activity' => $record])
+                    @endforeach
                 @endforeach
-
-                {{$threads->links()}}
             </div>
         </div>
     </div>
-
 @endsection
