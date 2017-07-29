@@ -19,11 +19,12 @@
 
                             <div class="level">
                                 <span>
-                                    <a href="#"> {{ $thread->creator->name }} </a> posted:
-                                    {{ $thread->title }}
+                                    <a href="{{route('profile', $thread->creator)}}"> {{ $thread->creator->name }} </a> posted:
+                                    <a href="{{$thread->path()}}">{{ $thread->title }}</a>
                                 </span>
+
                                 <span class="flex">
-                                    {{$thread->created_at->diffForHumans()}}
+                                    <a href="#">{{$thread->created_at->diffForHumans()}}</a>
                                 </span>
                             </div>
                         </div>
