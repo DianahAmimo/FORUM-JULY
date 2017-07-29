@@ -19,9 +19,13 @@ trait Favoritable
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isFavorited()
     {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
+        return !! $this->favorites->where('user_id', auth()->id())->count();
+
     }
 
     public function getFavoritesCountAttribute()

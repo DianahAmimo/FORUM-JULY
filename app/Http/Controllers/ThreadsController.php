@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
-use App\Thread;
 use App\Filters\ThreadFilters;
+use App\Thread;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class ThreadsController extends Controller
      * Display a listing of the resource.
      *
      * @param Channel $channel
-     * @param \App\Http\Controllers\ThreadFilters|ThreadFilters $filters
+     * @param ThreadFilters|ThreadFilters $filters
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters)
@@ -124,7 +124,7 @@ class ThreadsController extends Controller
      * @param ThreadFilters $filters
      * @return mixed
      */
-    public function getThreads(Channel $channel, ThreadFilters $filters)
+    protected function getThreads(Channel $channel, ThreadFilters $filters)
     {
         $threads = Thread::latest()->filter( $filters );
 
