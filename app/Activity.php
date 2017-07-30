@@ -25,3 +25,5 @@ class Activity extends Model
         });
     }
 }
+
+
