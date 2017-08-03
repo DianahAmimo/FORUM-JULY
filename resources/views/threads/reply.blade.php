@@ -1,40 +1,51 @@
-<div id="reply-{{$reply->id}}" class="panel panel-default">
+<reply  :attributes = "{{$reply}}"inline-template v-cloak>
 
-    <div class="panel-heading">
+    <div id="reply-{{$reply->id}}" class="panel panel-default">
 
-        <div class="level">
+        <div class="panel-heading">
 
-            <h5 class="flex">
-                <a href="{{route('profile', $reply->owner)}}">
-                    {{$reply->owner->name}}
-                </a> said {{$reply->created_at->diffForHumans()}}.......
-            </h5>
+            <div class="level">
 
-            <div>
-                {{$reply->favorites()->count()}}
-                <form action="/replies/{{$reply->id}}/favorites" method="post">
-                    {{csrf_field()}}
-                    <button type="submit" class="btn btn-default" {{$reply->isFavorited() ? 'disabled' : ''}}>
-                        {{$reply->favorites_count}} {{str_plural('Favorite', $reply->favorites_count)}}
-                    </button>
-                </form>
+                <h5 class="flex">
+                    <a href="{{route('profile', $reply->owner)}}">
+                        {{$reply->owner->name}}
+                    </a> said {{$reply->created_at->diffForHumans()}}.......
+                </h5>
+
+                <div>
+                    {{$reply->favorites()->count()}}
+                    <form action="/replies/{{$reply->id}}/favorites" method="post">
+                        {{csrf_field()}}
+                        <button type="submit" class="btn btn-default" {{$reply->isFavorited() ? 'disabled' : ''}}>
+                            {{$reply->favorites_count}} {{str_plural('Favorite', $reply->favorites_count)}}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="panel-body">
-        {{$reply->body}}
-    </div>
+        <div class="panel-body">
+            <div v-if="editing">
+                <div class="form-group">
+                    <textarea class="form-control" v-model="body"></textarea>
+                </div>
 
-    @can('update', $reply)
-        <div class="panel-footer">
-            <form method="POST" action="/replies/{{$reply->id}}">
-                {{csrf_field()}}
-                {{method_field('DELETE')}}
-
-                <button type="submit" class="btr btn-danger btn-xs">Delete</button>
-            </form>
+                <button class="btn btn-xs btn-primary" @click="update" >Update</button>
+                <button class="btn btn-xs btn-link" @click="editing = false">Cancel</button>
+            </div>
+            <div v-else v-text="body"></div>
         </div>
-    @endcan
 
-</div>
+        @can('update', $reply)
+            <div class="panel-footer level">
+                <button class="btn btn-xs mr-1" @click = "editing = true">Edit</button>
+                <form method="POST" action="/replies/{{$reply->id}}">
+                    {{csrf_field()}}
+                    {{method_field('DELETE')}}
+
+                    <button type="submit" class="btr btn-danger btn-xs">Delete</button>
+                </form>
+            </div>
+        @endcan
+    </div>
+</reply>
