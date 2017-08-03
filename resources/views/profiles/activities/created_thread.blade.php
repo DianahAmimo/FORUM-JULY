@@ -1,5 +1,4 @@
 @component('profiles.activities.activity')
-haha
     @slot('heading')
         {{$profileUser->name}} published
         <a href="{{ $activity->subject->path() }}">{{$activity->subject->title}}</a>
@@ -9,8 +8,4 @@ haha
         {{ $activity->subject->body }}
     @endslot
 @endcomponent
-
-
-
-
 
