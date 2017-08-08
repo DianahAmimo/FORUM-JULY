@@ -27,8 +27,8 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->post($thread->path(). '/replies', $reply->toArray());
 
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
+        $this->assertEquals(1, $thread->fresh()->replies_count);
     }
 
     /** @test */
@@ -69,6 +69,8 @@ class ParticipateInThreadsTest extends TestCase
 
             $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
+            $this->assertEquals(0, $reply->thread->fresh()->replies_count);
+
     }
 
     /** @test */
@@ -78,10 +80,10 @@ class ParticipateInThreadsTest extends TestCase
 
         $reply = create('App\Reply', ['user_id' => auth()->id()]);
 
-        $updateReply = 'You have been changed, fool.';
+        $updateReply = 'You been changed, fool.';
         $this->patch("/replies/{$reply->id}", ['body' => $updateReply ]);
 
-        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => '$updateReply']);
+        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $updateReply]);
 
     }
 
