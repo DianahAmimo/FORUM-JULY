@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Mockery\Exception;
+use Exception;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

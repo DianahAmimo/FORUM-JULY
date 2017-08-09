@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Inspections\Spam;
 use App\Reply;
-use App\Spam;
 use App\Thread;
-use Illuminate\Http\Request;
-use Mockery\Exception;
 
 class RepliesController extends Controller
 {
@@ -23,7 +21,7 @@ class RepliesController extends Controller
     /**
      * @param $channelId
      * @param Thread $thread
-     * @param Spam $spam
+     * @param \App\Inspections\Spam $spam
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store($channelId, Thread $thread, Spam $spam)
