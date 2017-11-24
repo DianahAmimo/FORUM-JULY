@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Reply;
 use App\Thread;
-use Mockery\Exception;
 
 class RepliesController extends Controller
 {
@@ -30,7 +28,7 @@ class RepliesController extends Controller
 
         try {
 
-            $this->validateReply();
+            $this->validate(request(), ['body' => 'required|spamfree']);
 
             $reply = $thread->addReply([
                 'body' => request('body'),
@@ -53,7 +51,7 @@ class RepliesController extends Controller
 
          try {
 
-             $this->validateReply();
+             $this->validate(request(), ['body' => 'required|spamfree']);
 
              $reply->update(request(['body']));
          } catch (\Exception $e) {
@@ -78,12 +76,5 @@ class RepliesController extends Controller
          }
 
          return back();
-     }
-
-     protected function validateReply()
-     {
-         $this->validate(request(), ['body' => 'required']);
-
-         resolve(Spam::class)->detect(request('body'));
      }
 }
