@@ -36,7 +36,7 @@
                 axios.get(this.url(page)) .then(this.refresh);
             },
 
-            url(page=1) {
+            url(page) {
                 if(!page) {
                     let query = location.search.match(/page=(\d+)/);
 

@@ -26796,9 +26796,9 @@ Vue.component('flash', __webpack_require__(168));
 
 Vue.component('paginator', __webpack_require__(170));
 
-Vue.component('thread-view', __webpack_require__(175));
-
 Vue.component('user-notifications', __webpack_require__(174));
+
+Vue.component('thread-view', __webpack_require__(175));
 
 var app = new Vue({
   el: '#app'
@@ -27935,9 +27935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetch: function fetch(page) {
             axios.get(this.url(page)).then(this.refresh);
         },
-        url: function url() {
-            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-
+        url: function url(page) {
             if (!page) {
                 var query = location.search.match(/page=(\d+)/);
 
@@ -28114,26 +28112,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            notifications: false
-        };
+        return { notifications: false };
     },
     created: function created() {
         var _this = this;
 
-        axios.get("/profiles/" + window.App.user.name + "/notifications/").then(function (response) {
+        axios.get('/profiles/' + window.App.user.name + '/notifications').then(function (response) {
             return _this.notifications = response.data;
         });
     },
 
 
     methods: {
-        //            "/profiles/{$user->name}/notifications/" . $user->unreadNotifications->first()->id
         markAsRead: function markAsRead(notification) {
-            axios.delete('profiles' + window.App.user.name + '/notifications' + notification.id);
+            axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id);
         }
     }
 
@@ -58796,8 +58792,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))]) : _vm._e()
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
+    staticClass: "dropdown-toggle",
     attrs: {
-      "href": "dropdown-toggle",
+      "href": "#",
       "data-toggle": "dropdown"
     }
   }, [_c('span', {

@@ -1,7 +1,7 @@
 <template>
 
     <li class="dropdown" v-if="notifications.length">
-        <a href="dropdown-toggle" data-toggle="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-bell"></span>
         </a>
 
@@ -14,27 +14,22 @@
             </li>
         </ul>
     </li>
-
-
 </template>
 
 <script>
     export default {
         data() {
-            return {
-                notifications: false
-            }
+            return { notifications: false }
         },
 
         created() {
-            axios.get("/profiles/"+ window.App.user.name + "/notifications/")
+            axios.get('/profiles/'+ window.App.user.name + '/notifications')
                 .then(response => this.notifications = response.data);
         },
 
         methods: {
-//            "/profiles/{$user->name}/notifications/" . $user->unreadNotifications->first()->id
             markAsRead(notification) {
-                axios.delete('profiles' + window.App.user.name + '/notifications' + notification.id)
+                axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
 
             }
         }

@@ -13,8 +13,6 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-    use Ramsey\Uuid\Uuid;
-
     $factory->define(App\User::class, function (Faker\Generator $faker) {
         static $password;
 
@@ -65,7 +63,7 @@
 
     $factory->define(\Illuminate\Notifications\DatabaseNotification::class, function($faker){
         return[
-            'id' => Uuid::uuid4()->toString(),
+            'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
             'type' => 'App\Notifications\ThreadWasUpdated',
             'notifiable_id' => function(){
             return auth()->id() ?: factory('App\User')->create()->id;

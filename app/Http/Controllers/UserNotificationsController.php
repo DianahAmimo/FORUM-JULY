@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Http\Request;
 
 class UserNotificationsController extends Controller
 {
@@ -18,6 +16,12 @@ class UserNotificationsController extends Controller
         return auth()->user()->unreadNotifications;
     }
 
+    /**
+     * Mark a specific notification as read.
+     *
+     * @param \App\User $user
+     * @param int   $notificationId
+     */
     public function destroy($user, $notificationId)
     {
         auth()->user()->notifications()->findOrFail($notificationId)->markAsRead();

@@ -64,7 +64,7 @@
                 return window.App.signedIn;
             },
             canUpdate() {
-                return this.authorize(user => this.data.user_id == user.id);
+                return this.authorize(user => this.data.user_id === user.id);
             }
         },
 

@@ -9,20 +9,21 @@ class ThreadWasUpdated extends Notification
 {
     use Queueable;
 
-    protected $reply;
-
     protected $thread;
+
+    protected $reply;
 
     /**
      * Create a new notification instance.
      *
-     * @param $thread
-     * @param $reply
+     * @param \App\Thread $thread
+     * @param \App\Reply $reply
      */
     public function __construct($thread, $reply)
     {
-        $this->reply = $reply;
         $this->thread = $thread;
+
+        $this->reply = $reply;
     }
 
     /**
