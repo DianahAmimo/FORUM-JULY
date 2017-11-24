@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inspections\Spam;
 use App\Reply;
 use App\Thread;
+use Mockery\Exception;
 
 class RepliesController extends Controller
 {
@@ -27,28 +28,43 @@ class RepliesController extends Controller
     public function store($channelId, Thread $thread)
     {
 
-       $this->validateReply();
+        try {
 
-       $reply = $thread->addReply([
-           'body' => request('body'),
-            'user_id' => auth()->id()
-       ]);
+            $this->validateReply();
 
-       if (request()->expectsJson()) {
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id' => auth()->id()
+            ]);
+        } catch (\Exception $e) {
+
+            return response(
+                'Sorry, your reply could not be saved at this time.',
+                422
+            );
+        }
+
            return $reply->load('owner');
-       }
-
-       return back()->with('flash', 'Your reply has been left.');
-
      }
 
      public function update(Reply $reply)
      {
          $this->authorize('update', $reply);
 
-         $this->validateReply();
+         try {
 
-         $reply->update(request(['body']));
+             $this->validateReply();
+
+             $reply->update(request(['body']));
+         } catch (\Exception $e) {
+
+             return response(
+                 'Sorry, your reply could not be saved at this time.',
+                 422
+             );
+         }
+
+
      }
 
      public function destroy(Reply $reply)
