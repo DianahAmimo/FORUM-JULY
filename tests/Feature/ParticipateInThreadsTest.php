@@ -125,7 +125,7 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->signin();
+        $this->signIn();
 
         $thread = create('App\Thread');
 
@@ -135,8 +135,7 @@ class ParticipateInThreadsTest extends TestCase
             ->assertStatus(200);
 
         $this->post($thread->path(). '/replies', $reply->toArray())
-            ->assertStatus(422);
+            ->assertStatus(429);
 
     }
-
 }
