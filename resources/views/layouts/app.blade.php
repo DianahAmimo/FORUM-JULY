@@ -32,6 +32,7 @@
         [v-cloak] {display: none; }
     </style>
 
+    @yield('header')
 </head>
 
 <body>
@@ -45,5 +46,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+@yield('scripts')
 </body>
 </html>
