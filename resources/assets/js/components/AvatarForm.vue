@@ -6,7 +6,7 @@
         </div>
 
         <form v-if="canUpdate" method="POST"  enctype="multipart/form-data">
-            <image-upload name="avatar" class="mr-1" @onloaded="onLoad"></image-upload>
+            <image-upload name="avatar" class="mr-1" @loaded="onLoad"></image-upload>
         </form>
     </div>
 </template>
@@ -46,8 +46,8 @@
 
                 data.append('avatar', avatar);
 
-                axios.post('/api/users/${this.user.name}/avatar', data)
-                    .then(() => flash('Avatar Uploaded!'));
+                axios.post(`/api/users/${this.user.name}/avatar`, data)
+                    .then(() => flash('Avatar uploaded!'));
             }
         }
     }
