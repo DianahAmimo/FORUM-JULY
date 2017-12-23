@@ -35,6 +35,10 @@
             </div>
             <hr>
         </div>
+
+        <div class="panel-footer">
+            {{$thread->visits()}} Visits
+        </div>
     </div>
 
 @empty
