@@ -60,6 +60,11 @@
             return $reply;
         }
 
+        public function lock()
+        {
+            $this->update(['locked' => true]);
+        }
+
         /**
          * @param $query
          * @param $filters

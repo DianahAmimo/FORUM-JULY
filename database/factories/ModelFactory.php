@@ -46,6 +46,7 @@
             'body'=>$faker->paragraph,
             'visits'=>0,
             'slug'=>str_slug($title),
+            'locked' => false,
         ];
     });
 
